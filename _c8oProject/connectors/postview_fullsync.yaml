@@ -1,0 +1,38 @@
+↑default: true
+databaseName: postview_fullsync
+↓GetServerInfo [transactions.couchdb.GetServerInfoTransaction]: 
+  ↑default: true
+↓GetView [transactions.couchdb.GetViewTransaction]: 
+  viewname: ddoc/view
+  ↓_use_stable [variables.RequestableVariable-1616494186145]: 
+    description: (boolean) – Whether or not the view results should be returned from a stable set of shards. Default is false
+↓HeadWithR [transactions.couchdb.CustomTransaction]: 
+  httpVerb: HEAD
+  subUrl: '"doc?r=100&stable=true"'
+↓Mango [transactions.couchdb.CustomTransaction]: 
+  httpData: '{"update": false, "stable": true, "r": 100, "selector": {"_id":{"$in":["doc"]}}, "fields": ["_id", "_rev"]}'
+  httpVerb: POST
+  subUrl: '"_find"'
+↓PostDocument [transactions.couchdb.PostDocumentTransaction]: 
+  p_json_base: '{"_id": "doc"}'
+  policy: override
+  ↓val [variables.RequestableVariable-1616493166608]: 
+↓ddoc [couchdb.DesignDocument]: 
+  docdata: 
+    →: |
+      '{
+        "_id": "_design\/ddoc",
+        "filters": {},
+        "updates": {},
+        "views": {
+          "view": {
+            "map": "function (doc) {\r\n
+          try {\r\n
+              emit(doc._id, doc.val);\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }"
+          }
+        }
+      }'

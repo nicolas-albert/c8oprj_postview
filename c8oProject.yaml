@@ -1,0 +1,9 @@
+↑convertigo: 7.9.0.m006
+↓PostView [core.Project]: 
+  comment: Mashup Sequencer project
+  ↓postview_fullsync [connectors.FullSyncConnector]: 🗏 connectors/postview_fullsync.yaml
+  ↓PostHeadView [sequences.GenericSequence]: 🗏 sequences/PostHeadView.yaml
+  ↓PostMangoView [sequences.GenericSequence]: 🗏 sequences/PostMangoView.yaml
+  ↓PostView [sequences.GenericSequence]: 🗏 sequences/PostView.yaml
+  ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
+    urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd

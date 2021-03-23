@@ -1,0 +1,70 @@
+↓init [steps.SimpleStep-1616506716352]: 
+  expression: var start = new Date().getTime();
+↓all [steps.XMLComplexStep-1616493948022]: 
+  nodeName: all
+  ↓count [steps.AttributeStep-1616494096985]: 
+    expression: count
+    nodeName: count
+  ↓jWhile [steps.WhileStep-1616493800232]: 
+    condition: (count = (count - 1)) >= 0
+    ↓run [steps.XMLComplexStep-1616493386119]: 
+      nodeName: run
+      ↓random [steps.AttributeStep-1616493305129]: 
+        expression: val = ("" + Math.floor(Math.random()*1000))
+        nodeName: random
+      ↓Call_Transaction [steps.TransactionStep-1616493398915]: 
+        sourceTransaction: PostView.postview_fullsync.PostDocument
+        ↓val [variables.StepVariable-1616493398917]: 
+      ↓sleep [steps.SimpleStep-1616506329637]: 
+        expression: |
+          'sleep *= 1;
+          if (sleep > 0) {
+          	java.lang.Thread.sleep(sleep);
+          }'
+      ↓Call_Transaction1 [steps.TransactionStep-1616493422494]: 
+        sourceTransaction: PostView.postview_fullsync.GetView
+        ↓_use_stable [variables.StepVariable-1616494192761]: 
+          description: (boolean) – Whether or not the view results should be returned from a stable set of shards. Default is false
+      ↓jSimpleSource [steps.SimpleSourceStep-1616493690543]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1616493422494
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/rows/item/value/text()
+        variableName: view
+      ↓view [steps.XMLAttributeStep-1616493434223]: 
+        nodeName: view
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1616493422494
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/rows/item/value/text()
+      ↓equals [steps.AttributeStep-1616493729334]: 
+        expression: val == view
+        nodeName: equals
+  ↓false [steps.XMLAttributeStep-1616493978194]: 
+    nodeName: false
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1616493948022
+          - java.lang.String: 
+            - ↑value: count(./run[@equals="false"])
+  ↓jAttribute [steps.AttributeStep-1616506719196]: 
+    expression: '""+ (new Date().getTime() - start)'
+    nodeName: time
+↓count [variables.RequestableVariable-1616493755569]: 
+  value: 1
+↓_use_stable [variables.RequestableVariable-1616494200725]: 
+  description: (boolean) – Whether or not the view results should be returned from a stable set of shards. Default is false
+  value: false
+↓sleep [variables.RequestableVariable-1616506308410]: 
+  value: 0
